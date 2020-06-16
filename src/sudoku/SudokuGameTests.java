@@ -315,26 +315,16 @@ class SudokuGameTests {
 				{6,7,8,9,1,2,3,4,5},
 				{9,1,2,3,4,5,6,7,8}
 		};
-		int[][] incorrectLoss = {
-				{2,3,4,5,6,7,8,9,1},
-				{5,6,7,8,9,1,2,7,4},
-				{8,9,1,2,3,4,5,6,7},
-				{1,2,3,4,5,6,7,8,9},
-				{4,5,6,7,8,9,1,2,3},
-				{7,8,9,1,2,3,4,5,6},
-				{3,4,5,6,7,8,9,1,2},
-				{6,7,8,9,1,2,3,4,5},
-				{9,1,2,3,4,5,6,7,8}
-		};
 		
 		SudokuGame isWin1 = new SudokuGame(Win1);
 		SudokuGame isWin2 = new SudokuGame(Win2);
 		SudokuGame isIncompleteLoss = new SudokuGame(incompleteLoss);
-		SudokuGame isIncorrectLoss = new SudokuGame(incorrectLoss);
+		SudokuGame isIncorrectLoss = new SudokuGame(Win2);
 		
 		assertEquals(true, isWin1.isWin());
 		assertEquals(true, isWin2.isWin());
 		assertEquals(false, isIncompleteLoss.isWin());
+		isIncorrectLoss.editState(0, 0, 1);
 		assertEquals(false, isIncorrectLoss.isWin());
 	}
 
