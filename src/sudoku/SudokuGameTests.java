@@ -247,7 +247,34 @@ class SudokuGameTests {
 	 */
 	@Test
 	void testIsComplete() {
-		fail("Not yet implemented"); // TODO
+		int[][] completed = {
+				{1,2,3,4,5,6,7,8,9},
+				{4,5,6,7,8,9,1,2,3},
+				{7,8,9,1,2,3,4,5,6},
+				{2,3,4,5,6,7,8,9,1},
+				{5,6,7,8,9,1,2,3,4},
+				{8,9,1,2,3,4,5,6,7},
+				{3,4,5,6,7,8,9,1,2},
+				{6,7,8,9,1,2,3,4,5},
+				{9,1,2,3,4,5,6,7,8}
+		};
+		int[][] inProgress = {
+				{1,2,3,4,5,6,7,8,9},
+				{4,5,6,7,8,9,1,0,3},
+				{7,8,9,1,2,3,4,5,6},
+				{2,3,4,5,0,7,8,9,1},
+				{5,6,7,8,9,1,2,0,4},
+				{8,9,1,2,3,4,5,6,7},
+				{3,0,5,6,7,8,9,1,2},
+				{6,7,8,9,1,2,3,4,5},
+				{9,1,2,3,4,5,6,7,8}
+		};
+		SudokuGame completeGame = new SudokuGame(completed);
+		SudokuGame incompleteGame = new SudokuGame(inProgress);
+		
+		assertEquals(true, completeGame.isComplete());
+		assertEquals(false, incompleteGame.isComplete());
+		
 	}
 
 	/**
@@ -255,7 +282,60 @@ class SudokuGameTests {
 	 */
 	@Test
 	void testIsWin() {
-		fail("Not yet implemented"); // TODO
+		int[][] Win1 = {
+				{1,2,3,4,5,6,7,8,9},
+				{4,5,6,7,8,9,1,2,3},
+				{7,8,9,1,2,3,4,5,6},
+				{2,3,4,5,6,7,8,9,1},
+				{5,6,7,8,9,1,2,3,4},
+				{8,9,1,2,3,4,5,6,7},
+				{3,4,5,6,7,8,9,1,2},
+				{6,7,8,9,1,2,3,4,5},
+				{9,1,2,3,4,5,6,7,8}
+		};
+		int[][] Win2 = {
+				{2,3,4,5,6,7,8,9,1},
+				{5,6,7,8,9,1,2,3,4},
+				{8,9,1,2,3,4,5,6,7},
+				{1,2,3,4,5,6,7,8,9},
+				{4,5,6,7,8,9,1,2,3},
+				{7,8,9,1,2,3,4,5,6},
+				{3,4,5,6,7,8,9,1,2},
+				{6,7,8,9,1,2,3,4,5},
+				{9,1,2,3,4,5,6,7,8}
+		};
+		int[][] incompleteLoss = {
+				{1,2,3,4,5,6,7,8,9},
+				{4,5,6,7,8,9,1,0,3},
+				{7,8,9,1,2,3,4,5,6},
+				{2,3,4,5,0,7,8,9,1},
+				{5,6,7,8,9,1,2,0,4},
+				{8,9,1,2,3,4,5,6,7},
+				{3,0,5,6,7,8,9,1,2},
+				{6,7,8,9,1,2,3,4,5},
+				{9,1,2,3,4,5,6,7,8}
+		};
+		int[][] incorrectLoss = {
+				{2,3,4,5,6,7,8,9,1},
+				{5,6,7,8,9,1,2,7,4},
+				{8,9,1,2,3,4,5,6,7},
+				{1,2,3,4,5,6,7,8,9},
+				{4,5,6,7,8,9,1,2,3},
+				{7,8,9,1,2,3,4,5,6},
+				{3,4,5,6,7,8,9,1,2},
+				{6,7,8,9,1,2,3,4,5},
+				{9,1,2,3,4,5,6,7,8}
+		};
+		
+		SudokuGame isWin1 = new SudokuGame(Win1);
+		SudokuGame isWin2 = new SudokuGame(Win2);
+		SudokuGame isIncompleteLoss = new SudokuGame(incompleteLoss);
+		SudokuGame isIncorrectLoss = new SudokuGame(incorrectLoss);
+		
+		assertEquals(true, isWin1.isWin());
+		assertEquals(true, isWin2.isWin());
+		assertEquals(false, isIncompleteLoss.isWin());
+		assertEquals(false, isIncorrectLoss.isWin());
 	}
 
 }

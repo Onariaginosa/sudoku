@@ -143,8 +143,8 @@ public class SudokuGame {
 		while (x < 9) { 
 			while (y < 9) {
 				System.out.println("NewGroup: \n \n \n");
-				for (int i = 0; i <= 3; i++) {
-					for (int j = 0; j <= 3; j++) {
+				for (int i = 0; i < 3; i++) {
+					for (int j = 0; j < 3; j++) {
 						groupValues.add(this.state[x + i][y + j]);
 						System.out.print("(" + (x+i) + "," + (y+j) + "), ");
 						
