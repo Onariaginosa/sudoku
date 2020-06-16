@@ -31,6 +31,7 @@ class SudokuGameTests {
 
 	/**
 	 * Test method for {@link sudoku.SudokuGame#SudokuGame(int[][])}.
+	 * Constructor/IsValid Game Tests 
 	 */
 	@Test
 	void testSudokuGame() {
@@ -196,19 +197,49 @@ class SudokuGameTests {
 	}
 
 	/**
-	 * Test method for {@link sudoku.SudokuGame#isValidGame(int[][])}.
-	 */
-	@Test
-	void testIsValidGame() {
-		fail("Not yet implemented"); // TODO
-	}
-
-	/**
 	 * Test method for {@link sudoku.SudokuGame#editState(int, int, int)}.
 	 */
 	@Test
 	void testEditState() {
-		fail("Not yet implemented"); // TODO
+		int[][] start = {
+				{0,0,3,0,5,0,7,8,9},
+				{4,5,6,7,8,9,1,2,3},
+				{7,8,9,1,2,3,4,5,6},
+				{2,3,0,5,6,7,8,9,1},
+				{5,6,7,8,9,1,2,3,4},
+				{8,9,1,2,0,0,5,6,7},
+				{3,4,5,6,7,8,9,1,2},
+				{6,7,8,9,1,2,3,4,5},
+				{9,1,2,3,4,5,6,7,8}
+		};
+		int[][] set00to1 = {
+				{1,0,3,0,5,0,7,8,9},
+				{4,5,6,7,8,9,1,2,3},
+				{7,8,9,1,2,3,4,5,6},
+				{2,3,0,5,6,7,8,9,1},
+				{5,6,7,8,9,1,2,3,4},
+				{8,9,1,2,0,0,5,6,7},
+				{3,4,5,6,7,8,9,1,2},
+				{6,7,8,9,1,2,3,4,5},
+				{9,1,2,3,4,5,6,7,8}
+		};
+		int[][] set45to3 = {
+				{1,0,3,0,5,0,7,8,9},
+				{4,5,6,7,8,9,1,2,3},
+				{7,8,9,1,2,3,4,5,6},
+				{2,3,0,5,6,7,8,9,1},
+				{5,6,7,8,9,1,2,3,4},
+				{8,9,1,2,3,0,5,6,7},
+				{3,4,5,6,7,8,9,1,2},
+				{6,7,8,9,1,2,3,4,5},
+				{9,1,2,3,4,5,6,7,8}
+		};
+		
+		SudokuGame game = new SudokuGame(start);
+		game.editState(0, 0, 1);
+		assertEquals(true, game.isStateEqual(set00to1));
+		game.editState(4, 5, 3);
+		assertEquals(true, game.isStateEqual(set45to3));
 	}
 
 	/**

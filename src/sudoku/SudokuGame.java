@@ -23,8 +23,12 @@ public class SudokuGame {
 	public int[][] state;
 	private final int OPEN = 0;
 
-	// constructor
-
+	//Constructor
+	
+	/**
+	 * Tests if the initial start state is a valid SudokuGame. It does not test the correctness of the initial state;
+	 * @param StartState   the initial game state. It is of type int[][] 
+	 */
 	SudokuGame(int[][] StartState) {
 		if (isValidGame(StartState)) {
 			this.state = StartState;
@@ -33,11 +37,11 @@ public class SudokuGame {
 		}
 	}
 
-	// Methods
 	/**
-	 * 
+	 * Tests whether the given state is valid. It must be a 9 by 9 2D-int array where none of the values are greater than 9 or less than 0.
+	 * @param state		The given state to test.
+	 * @return			A boolean representation of whether the given state is valid
 	 */
-
 	public boolean isValidGame(int[][] state) {
 		if (state.length != 9) {
 			return false;
@@ -54,11 +58,16 @@ public class SudokuGame {
 		}
 		return true;
 	}
-
+	/**
+	 * Edits the state at position (x,y) to the given value if values given are valid
+	 * @param x			The index of the row value
+	 * @param y			The index of the column value
+	 * @param value		The value to be assigned at the given position
+	 */
 	public void editState(int x, int y, int value) {
 		// edits the state if the value is valid
-		if (value > 0 && value < 10) {
-			state[x][y] = value;
+		if (value >= 0 && value < 10) {
+			state[y][x] = value;
 		}
 	}
 
@@ -66,6 +75,26 @@ public class SudokuGame {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				if (this.state[i][j] == this.OPEN) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
+	
+	public boolean isStateEqual (int[][] other) {
+		if (state.length != other.length) {
+			return false;
+		}
+		for (int i = 0; i < 9; i++) {
+			if (state[i].length != other[i].length) {
+				return false;
+			}
+			for (int j = 0; j < 9; j++) {
+				if (state[i][j] != other[i][j]) {
+					System.out.println("Location: (" + i + "," + j + ")");
+					System.out.println("State: " + state[i][j]);
+					System.out.println("Other: " + other[i][j]);
 					return false;
 				}
 			}
