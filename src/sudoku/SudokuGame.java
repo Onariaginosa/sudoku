@@ -47,7 +47,7 @@ public class SudokuGame {
 				return false;
 			}
 			for (int j = 0; j < 9; j++) {
-				if (state[i][j] > 9 && state[i][j] < 0) {
+				if (state[i][j] > 9 || state[i][j] < 0) {
 					return false;
 				}
 			}

@@ -160,18 +160,29 @@ class SudokuGameTests {
 				{0,0,0,0,0,0,0,0,0,0},
 				{0,0,0,0,0,0,0,0,0,0},
 		};
+		int[][] extraColumnsMissingRows = {
+				{1,2,3,4,5,6,7,8,9,0},
+				{4,5,6,7,8,9,1,2,3,0},
+				{7,8,9,1,2,3,4,5,6,0},
+				{2,3,4,5,6,7,8,9,1,0},
+				{5,6,7,8,9,1,2,3,4,0},
+				{8,9,1,2,3,4,5,6,7,0}
+		};
 		
 		SudokuGame test1 = new SudokuGame(completed);
 		SudokuGame test2 = new SudokuGame(inProgress);
-		SudokuGame test3 = new SudokuGame(completed);
-		SudokuGame test4 = new SudokuGame(outOfRangeComplete);
-		SudokuGame test5 = new SudokuGame(outOfRangeIncomplete);
-		SudokuGame test6 = new SudokuGame(missingRows);
-		SudokuGame test7 = new SudokuGame(extraRows);
-		SudokuGame test8 = new SudokuGame(missingColumns);
-		
+		SudokuGame test3 = new SudokuGame(outOfRangeComplete);
+		SudokuGame test4 = new SudokuGame(outOfRangeIncomplete);
+		SudokuGame test5 = new SudokuGame(missingRows);
+		SudokuGame test6 = new SudokuGame(extraRows);
+		SudokuGame test7 = new SudokuGame(missingColumns);
+		SudokuGame test8 = new SudokuGame(extraColumns);
+		SudokuGame test9 = new SudokuGame(missingColumnsExtraRows);
+		SudokuGame test10 = new SudokuGame(missingColumnsMissingRows);
+		SudokuGame test11 = new SudokuGame(extraColumnsExtraRows);
+		SudokuGame test12 = new SudokuGame(extraColumnsMissingRows);
 		assertEquals(completed, test1.state);
-		assertEquals(null, test2.state);
+		assertEquals(inProgress, test2.state);
 		assertEquals(null, test3.state);
 		assertEquals(null, test4.state);
 		assertEquals(null, test5.state);
@@ -179,6 +190,9 @@ class SudokuGameTests {
 		assertEquals(null, test7.state);
 		assertEquals(null, test8.state);
 		assertEquals(null, test9.state);
+		assertEquals(null, test10.state);
+		assertEquals(null, test11.state);
+		assertEquals(null, test12.state);
 	}
 
 	/**
