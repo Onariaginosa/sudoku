@@ -28,7 +28,6 @@ public class SudokuGame {
 	/**
 	 * Tests if the initial start state is a valid SudokuGame. It does not test the
 	 * correctness of the initial state;
-	 * 
 	 * @param StartState the initial game state. It is of type int[][]
 	 */
 	SudokuGame(int[][] StartState) {
@@ -42,7 +41,6 @@ public class SudokuGame {
 	/**
 	 * Tests whether the given state is valid. It must be a 9 by 9 2D-int array
 	 * where none of the values are greater than 9 or less than 0.
-	 * 
 	 * @param state The given state to test.
 	 * @return A boolean representation of whether the given state is valid
 	 */
@@ -82,6 +80,11 @@ public class SudokuGame {
 		}
 	}
 
+	/**
+	 * Method that determines whether no spots are open in a game
+	 * @return 		a boolean representation of whether the game is complete 
+	 * or not
+	 */
 	public boolean isComplete() {
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
@@ -93,6 +96,12 @@ public class SudokuGame {
 		return true;
 	}
 
+	/**
+	 * Method that determines if the current state is the same as a given state
+	 * @param other		The state that is to be compared
+	 * @return			A boolean representation of whether the current state is 
+	 * the same as the other state
+	 */
 	public boolean isStateEqual(int[][] other) {
 		if (state.length != other.length) {
 			return false;
@@ -113,6 +122,12 @@ public class SudokuGame {
 		return true;
 	}
 
+	/**
+	 * Helper Method that tests for duplicate numbers in each row. 0's don't count
+	 * @param state		the given state to be tested
+	 * @return			A boolean representation of whether the rows are valid in
+	 * 					the given state.
+	 */
 	private boolean testRows(int[][] state) {
 		int[] rowValueFrequencies = new int[9];
 		int index;
@@ -135,9 +150,14 @@ public class SudokuGame {
 		}
 		return true;
 	}
-
+	
+	/**
+	 * Helper Method that tests for duplicate numbers in each column. 0's don't count
+	 * @param state		the given state to be tested
+	 * @return			A boolean representation of whether the columns are valid in 
+	 * 					the given state.
+	 */
 	private boolean testColumns(int[][] state) {
-//		HashMap <Integer, HashSet<Integer>> rows = new HashMap<Integer, HashSet<Integer>>(); 
 		int[] colValueFrequencies = new int[9];
 		int index;
 		for (int i = 0; i < 9; i++) {
@@ -160,6 +180,12 @@ public class SudokuGame {
 		return true;
 	}
 
+	/**
+	 * Helper Method that tests for duplicate numbers in each group. 0's don't count
+	 * @param state		the given state to be tested
+	 * @return			A boolean representation of whether the groups are valid in
+	 * 					the given state.
+	 */
 	private boolean testGroups(int[][] state) {
 		int[] groupValueFrequencies = new int[9];
 		int index;
@@ -188,6 +214,10 @@ public class SudokuGame {
 		return true;
 	}
 
+	/**
+	 * Method that determines whether the current state is a win
+	 * @return 		A boolean representation of whether the current state is a win
+	 */
 	public boolean isWin() {
 		if (!isComplete()) {
 			return false;

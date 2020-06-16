@@ -14,3 +14,12 @@
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  */
 package sudoku;
+
+public class SudokuSolver {
+	
+	public static SudokuGame solver(SudokuGame game) {
+		throw new UnsupportedOperationException();
+	}
+	
+	
+}
