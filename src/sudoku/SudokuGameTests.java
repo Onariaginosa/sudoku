@@ -182,18 +182,18 @@ class SudokuGameTests {
 		SudokuGame test10 = new SudokuGame(missingColumnsMissingRows);
 		SudokuGame test11 = new SudokuGame(extraColumnsExtraRows);
 		SudokuGame test12 = new SudokuGame(extraColumnsMissingRows);
-		assertEquals(completed, test1.state);
-		assertEquals(inProgress, test2.state);
-		assertEquals(null, test3.state);
-		assertEquals(null, test4.state);
-		assertEquals(null, test5.state);
-		assertEquals(null, test6.state);
-		assertEquals(null, test7.state);
-		assertEquals(null, test8.state);
-		assertEquals(null, test9.state);
-		assertEquals(null, test10.state);
-		assertEquals(null, test11.state);
-		assertEquals(null, test12.state);
+		assertEquals(completed, test1.getState());
+		assertEquals(inProgress, test2.getState());
+		assertEquals(null, test3.getState());
+		assertEquals(null, test4.getState());
+		assertEquals(null, test5.getState());
+		assertEquals(null, test6.getState());
+		assertEquals(null, test7.getState());
+		assertEquals(null, test8.getState());
+		assertEquals(null, test9.getState());
+		assertEquals(null, test10.getState());
+		assertEquals(null, test11.getState());
+		assertEquals(null, test12.getState());
 	}
 
 	/**
