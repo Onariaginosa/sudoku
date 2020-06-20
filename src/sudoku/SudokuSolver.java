@@ -17,6 +17,11 @@ package sudoku;
 
 public class SudokuSolver {
 	
+	/**
+	 * Method that solves the entire sudoku game. If there is more than 1 possible solution 
+	 * @param game 				the 9x9 sudoku game of type int[][]
+	 * @return					returns the solved sudokuGame object or null
+	 */
 	public static SudokuGame solver(SudokuGame game) {
 		throw new UnsupportedOperationException();
 	}
