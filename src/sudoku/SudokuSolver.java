@@ -55,7 +55,13 @@ public class SudokuSolver {
 	
 	
 	
-	
+	/**
+	 * Method that updates the state until all coordinate positions are either filled,
+	 * or the remaining coordinates have more than one possible solution.
+	 * @param game				The SudokuGame to be solved
+	 * @param possibilities		The possibility map for each position in the game.
+	 * @return					returns true if the state was updated and false if not.
+	 */
 	private static boolean updateState(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
 		boolean updated = false;
 		// basic checks
@@ -68,6 +74,11 @@ public class SudokuSolver {
 		return updated;
 	}
 	
+	/**
+	 * Method that gets the possibilities of each position in the state
+	 * @param game			The SudokuGame in which the possibilities must be generated 
+	 * @return				The possibility map of the given game's state.
+	 */
 	private static HashMap<Coordinate, HashSet<Integer>> getPossibleStates(SudokuGame game) {
 		int[][] state = game.getState();
 		HashMap<Coordinate, HashSet<Integer> > possibilityMap = new HashMap<Coordinate, HashSet<Integer>>();
@@ -77,7 +88,7 @@ public class SudokuSolver {
 			for (int y = 0; y < 9; y++) {
 				if(state[y][x] == OPEN) {
 					location = new Coordinate(x, y);
-					values = getPossibleValues(game, x, y);
+					values = getPossibleValues(game, location);
 					possibilityMap.put(location, values);			
 				}
 			}
@@ -85,22 +96,28 @@ public class SudokuSolver {
 		return possibilityMap;
 	}
 	
-	private static HashSet<Integer> getPossibleValues( SudokuGame game, int x, int y) {
+	/**
+	 * Method the gets the possible values at a given Coordinate
+	 * @param game			The SudokuGame to be considered
+	 * @param pos			The position in the SudokuGame state
+	 * @return				A HashSet of the possible chosen positions
+	 */
+	private static HashSet<Integer> getPossibleValues( SudokuGame game, Coordinate pos) {
 		int[][] state = game.getState();
-		int groupX = x/3;
-		int groupY = y/3;
+		int groupX = pos.x/3;
+		int groupY = pos.y/3;
 		HashSet<Integer> possibilities = new HashSet<Integer>();
 		for (int i = 1; i <10; i++) {
 			possibilities.add(i);
 		}
 		for (int i = 0; i < 9; i++) {
 			// check row 
-			if (possibilities.contains(state[y][i])) {
-				possibilities.remove(state[y][i]);
+			if (possibilities.contains(state[pos.y][i])) {
+				possibilities.remove(state[pos.y][i]);
 			}
 			// check column
-			if (possibilities.contains(state[i][y])) {
-				possibilities.remove(state[i][x]);
+			if (possibilities.contains(state[i][pos.y])) {
+				possibilities.remove(state[i][pos.x]);
 			}
 		}
 		//check groups
