@@ -69,18 +69,23 @@ public class SudokuSolver {
 	 */
 	private static boolean updateState(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
 		boolean updated = false;
+		HashSet<Coordinate> trash = new HashSet<Coordinate>();
 		// basic checks
 		for (Coordinate c : possibilities.keySet()) {
 			
 			System.out.println("("+c.x+","+c.y+"):");
 			System.out.println(possibilities.get(c));
+			System.out.println(game.getState()[c.y][c.x]);
 			
 			if (possibilities.get(c).size() == 1) {
 				System.out.println("Its here");
 				updated = true;
 				game.editState(c.x, c.y, (int) possibilities.get(c).toArray()[0]);
-				possibilities.remove(c);
+				trash.add(c);
 			}
+		}
+		for (Coordinate c : trash) {
+			possibilities.remove(c);
 		}
 		return updated;
 	}
@@ -115,13 +120,15 @@ public class SudokuSolver {
 	 */
 	private static HashSet<Integer> getPossibleValues( SudokuGame game, Coordinate pos) {
 		int[][] state = game.getState();
-		int groupX = pos.x/3;
-		int groupY = pos.y/3;
+		int groupX = (pos.x/3 == 0)? 0: (pos.x/3 == 1)? 3 : 6;
+		int groupY = (pos.y/3 == 0)? 0: (pos.y/3 == 1)? 3 : 6;
 		HashSet<Integer> possibilities = new HashSet<Integer>();
 		for (int i = 1; i <10; i++) {
 			possibilities.add(i);
 		}
+		System.out.println(possibilities);
 		for (int i = 0; i < 9; i++) {
+			System.out.println(i);
 			// check row 
 			if (possibilities.contains(state[pos.y][i])) {
 				possibilities.remove(state[pos.y][i]);
@@ -130,13 +137,16 @@ public class SudokuSolver {
 			if (possibilities.contains(state[i][pos.y])) {
 				possibilities.remove(state[i][pos.x]);
 			}
+			System.out.println(possibilities);
 		}
 		//check groups
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (possibilities.contains(state[groupY+j][groupX+i])) {
 					possibilities.remove(state[groupY+j][groupX+i]);
+					System.out.println(possibilities);
 				}
+				
 			}
 		}
 		return possibilities;
