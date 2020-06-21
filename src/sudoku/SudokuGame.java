@@ -78,6 +78,9 @@ public class SudokuGame {
 	public void editState(int x, int y, int value) {
 		// edits the state if the value is valid
 		if (value >= 0 && value < 10) {
+			System.out.println("Position: ("+x+","+y+")");
+			System.out.println("Old Value: " + state[y][x]);
+			System.out.println("New Value: " + value);
 			state[y][x] = value;
 		}
 	}
@@ -106,6 +109,7 @@ public class SudokuGame {
 	 *         the other state
 	 */
 	public boolean isStateEqual(int[][] other) {
+		boolean x = true;
 		if ((other == null && this.state != null) || (other != null && this.state == null)) {
 			return false;
 		} else if (other == null && this.state == null) {
@@ -123,11 +127,11 @@ public class SudokuGame {
 						System.out.println("Location: (" + i + "," + j + ")");
 						System.out.println("State: " + state[i][j]);
 						System.out.println("Other: " + other[i][j]);
-						return false;
+						x = false;
 					}
 				}
 			}
-			return true;
+			return x;
 		}
 	}
 

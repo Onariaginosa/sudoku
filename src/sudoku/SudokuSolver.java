@@ -37,11 +37,16 @@ public class SudokuSolver {
 	 */
 	public static int[][] solver(SudokuGame game) {
 		boolean go = true;
-		
+		int count =1;
+		System.out.println("Hello");
 		while (go) {
+			System.out.println("Go number "+ count);
 			go = updateState(game, getPossibleStates(game));
+			count++;
 		}
+		System.out.println("Is it me you're looking for");
 		if (game.isComplete()) {
+			System.out.println("PLEASE");
 			if (game.isWin()) {
 				return game.getState();
 			} else {
@@ -49,7 +54,7 @@ public class SudokuSolver {
 				return null;
 			}
 		}
-		
+		System.out.println("nO WORK");
 		return null;
 	}
 	
@@ -66,9 +71,15 @@ public class SudokuSolver {
 		boolean updated = false;
 		// basic checks
 		for (Coordinate c : possibilities.keySet()) {
+			
+			System.out.println("("+c.x+","+c.y+"):");
+			System.out.println(possibilities.get(c));
+			
 			if (possibilities.get(c).size() == 1) {
+				System.out.println("Its here");
 				updated = true;
 				game.editState(c.x, c.y, (int) possibilities.get(c).toArray()[0]);
+				possibilities.remove(c);
 			}
 		}
 		return updated;

@@ -97,10 +97,15 @@ class SudokuSolverTests {
 		SudokuGame threeMoves = new SudokuGame(ThreeMovesAway);
 		SudokuGame fourMoves = new SudokuGame(FourMovesAway);
 		
+		SudokuSolver.solver(oneMove);
 		assertEquals(true, oneMove.isStateEqual(completed));
+		SudokuSolver.solver(twoMoves);
 		assertEquals(true, twoMoves.isStateEqual(completed));
+		SudokuSolver.solver(threeMoves);
 		assertEquals(true, threeMoves.isStateEqual(completed));
+		SudokuSolver.solver(fourMoves);
 		assertEquals(true, fourMoves.isStateEqual(completed));
+		
 	}
 
 }
