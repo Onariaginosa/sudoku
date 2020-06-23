@@ -1,0 +1,13 @@
+Sudoku Solver Strategies:
+
+Check for possibilities
+Create a possibility map
+	1. For spots with one possibility that is the value
+	2. For groups, rows and columns where a number appears in only one position
+		in said group/row/column in the possibility map, that number is the value;
+	3. The x-y split:
+		For values where 2 numbers can only be in one box, and the same for another position
+		then those two numbers are removed from their given group/row/column
+		
+	4. The group row/column assumption:
+		
