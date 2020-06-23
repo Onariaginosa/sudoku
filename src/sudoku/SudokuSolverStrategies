@@ -34,8 +34,10 @@ Create a possibility map
 
 Solving Strategies: 
 
-	1. For spots with one possibility that is the value
-	2. For groups, rows and columns where a number appears in only one position
+	1. Instant Value Finder:
+		For spots with one possibility that is the value
+	2. Only 1 option
+		For groups, rows and columns where a number appears in only one position
 		in said group/row/column in the possibility map, that number is the value;
 	3. The x-y split:
 		For values where 2 numbers can only be in one box, and the same for another position
@@ -52,8 +54,20 @@ Solving Strategies:
 		column, and group 4 in the  left column, then a 1 in group 7 can only appear in the right 
 		column. The same rule applies with rows.
 		
-		
-		
+Implementation Checklist
+
+  _
+ |C|  1. Create Possibility Map
+  _
+ |C|  2. Instant Value Finder
+  _
+ |_|  3. Only 1 Option 
+  _
+ |_|  4. The X-Y Split 
+  _
+ |_|  5. The Group Row/Column Assumption 
+  _
+ |_|  6. Number Solving
 		
 		
 		
