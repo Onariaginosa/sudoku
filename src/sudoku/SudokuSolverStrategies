@@ -1,7 +1,39 @@
 Sudoku Solver Strategies:
 
+Sudoku Game:
+
+Rows: 		  1   2   3     4   5   6     7   8   9       Columns:
+			 ___ ___ ___   ___ ___ ___   ___ ___ ___
+			|   |   |   | |   |   |   | |   |   |   |
+			|___|___|___| |___|___|___| |___|___|___|        1
+			|   | 1 |   | |   | 2 |   | |   | 3 |   |
+			|___|___|___| |___|___|___| |___|___|___|        2
+			|   |   |   | |   |   |   | |   |   |   | 
+			|___|___|___| |___|___|___| |___|___|___|        3
+			 ___ ___ ___   ___ ___ ___   ___ ___ ___
+			|   |   |   | |   |   |   | |   |   |   |
+			|___|___|___| |___|___|___| |___|___|___|        4
+			|   | 4 |   | |   | 5 |   | |   | 6 |   |
+			|___|___|___| |___|___|___| |___|___|___|        5
+			|   |   |   | |   |   |   | |   |   |   |
+			|___|___|___| |___|___|___| |___|___|___|        6
+			 ___ ___ ___   ___ ___ ___   ___ ___ ___
+			|   |   |   | |   |   |   | |   |   |   |
+			|___|___|___| |___|___|___| |___|___|___|        7
+			|   | 7 |   | |   | 8 |   | |   | 9 |   |
+			|___|___|___| |___|___|___| |___|___|___|        8
+			|   |   |   | |   |   |   | |   |   |   |
+			|___|___|___| |___|___|___| |___|___|___|        9
+
+
+Note: Group Numbers are labelled within each group block
+		Group Blocks are separated with double dashes and a space
+
 Check for possibilities
 Create a possibility map
+
+Solving Strategies: 
+
 	1. For spots with one possibility that is the value
 	2. For groups, rows and columns where a number appears in only one position
 		in said group/row/column in the possibility map, that number is the value;
@@ -10,4 +42,39 @@ Create a possibility map
 		then those two numbers are removed from their given group/row/column
 		
 	4. The group row/column assumption:
+		If an x-y split occurs where the 2 positions are in one row or one column, of a group
+		then it can be assumed in the solve for numbers instance that the two numbers (x and y)
+		are only in that row/column for that group in Number Solving.
+		
+	5. Number Solving:
+		In a row of 3 groups or a column of 3 groups this is applicable. There can be one of each
+		number in a group and a row/column. Therefore, if a number, x is in group 1 in the middle
+		column, and group 4 in the  left column, then a 1 in group 7 can only appear in the right 
+		column. The same rule applies with rows.
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
