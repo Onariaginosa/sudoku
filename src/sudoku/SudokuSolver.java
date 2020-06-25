@@ -207,8 +207,8 @@ public class SudokuSolver {
 		int[][] state = game.getState();
 		HashMap<Coordinate, Integer> finalEdits = new HashMap<Coordinate, Integer>();
 		ArrayList<Coordinate> row = new ArrayList<Coordinate>();
-		Coordinate[] rowLocations = new Coordinate[9];
-		int[] rowFreq = new int[9];
+		Coordinate[] locations = new Coordinate[9];
+		int[] freq = new int[9];
 		for (int i = 0; i < 9; i++) {
 			for (int j = 0; j < 9; j++) {
 				//collect rows
@@ -222,32 +222,27 @@ public class SudokuSolver {
 				}
 			}
 			// check for singular possibility in row
-	
-			
-		}
-		// check for singular possibility in group
-		for (Coordinate c : group) {
-			for (int v : possibilities.get(c)) {
-				freq[v - 1]++;
-				locations[v - 1] = c;
+			for (Coordinate c : row) {
+				for (int v : possibilities.get(c)) {
+					freq[v - 1]++;
+					locations[v - 1] = c;
+				}
 			}
-		}
-		for (int f = 0; f < 9; f++) {
-			if (freq[f] == 1) {
-				finalEdits.put(locations[f], f + 1);
-				// if we found the value, no need to iterate through it
-				// when searching for Coordinates in the following groups
-				possibilities.remove(locations[f]);
+			for (int f = 0; f < 9; f++) {
+				if (freq[f] == 1) {
+					finalEdits.put(locations[f], f + 1);
+					// if we found the value, no need to iterate through it
+					// when searching for Coordinates in the following groups
+					possibilities.remove(locations[f]);
+				}
 			}
+			//reset row
+			row = new ArrayList<Coordinate>();		
 		}
-
-		// reset group
-		group = new ArrayList<Coordinate>();
 		// edit all of the chosen locations in the game
 		for (Coordinate c : finalEdits.keySet()) {
 			game.editState(c.x, c.y, finalEdits.get(c));
 		}
-
 	}
 
 	public static class Coordinate {
