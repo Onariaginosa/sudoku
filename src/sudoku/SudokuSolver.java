@@ -153,6 +153,13 @@ public class SudokuSolver {
 		}
 		return possibilities;
 	}
+	
+	private static void OnlyOneOption(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+		OnlyOneOptionRow(game, possibilities);
+		OnlyOneOptionCol(game, possibilities);
+		OnlyOneOptionGroup(game, possibilities);
+	}
+	
 
 	private static void OnlyOneOptionGroup(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
 		// if the possibility appears once in a group then that value is the possibility
