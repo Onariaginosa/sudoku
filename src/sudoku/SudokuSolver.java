@@ -232,12 +232,54 @@ public class SudokuSolver {
 				if (freq[f] == 1) {
 					finalEdits.put(locations[f], f + 1);
 					// if we found the value, no need to iterate through it
-					// when searching for Coordinates in the following groups
+					// when searching for Coordinates in the following rows
 					possibilities.remove(locations[f]);
 				}
 			}
 			//reset row
 			row = new ArrayList<Coordinate>();		
+		}
+		// edit all of the chosen locations in the game
+		for (Coordinate c : finalEdits.keySet()) {
+			game.editState(c.x, c.y, finalEdits.get(c));
+		}
+	}
+	
+	private static void OnlyOneOptionCol(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+		int[][] state = game.getState();
+		HashMap<Coordinate, Integer> finalEdits = new HashMap<Coordinate, Integer>();
+		ArrayList<Coordinate> col = new ArrayList<Coordinate>();
+		Coordinate[] locations = new Coordinate[9];
+		int[] freq = new int[9];
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				//collect open coordinates in column
+				if (state[j][i] == 0) {
+					for (Coordinate c : possibilities.keySet()) {
+						if (c.isEqual(i, j)) {
+							col.add(c);
+							break;
+						}
+					}
+				}
+			}
+			// check for singular possibility in column
+			for (Coordinate c : col) {
+				for (int v : possibilities.get(c)) {
+					freq[v - 1]++;
+					locations[v - 1] = c;
+				}
+			}
+			for (int f = 0; f < 9; f++) {
+				if (freq[f] == 1) {
+					finalEdits.put(locations[f], f + 1);
+					// if we found the value, no need to iterate through it
+					// when searching for Coordinates in the following columns
+					possibilities.remove(locations[f]);
+				}
+			}
+			//reset col
+			col = new ArrayList<Coordinate>();		
 		}
 		// edit all of the chosen locations in the game
 		for (Coordinate c : finalEdits.keySet()) {
