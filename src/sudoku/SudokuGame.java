@@ -110,6 +110,7 @@ public class SudokuGame {
 	 */
 	public boolean isStateEqual(int[][] other) {
 		boolean x = true;
+		int count = 0;
 		if ((other == null && this.state != null) || (other != null && this.state == null)) {
 			return false;
 		} else if (other == null && this.state == null) {
@@ -128,9 +129,11 @@ public class SudokuGame {
 						System.out.println("State: " + state[i][j]);
 						System.out.println("Other: " + other[i][j]);
 						x = false;
+						count++;
 					}
 				}
 			}
+			System.out.println("There are " + count+ " differences between the game state and the given state.");
 			return x;
 		}
 	}

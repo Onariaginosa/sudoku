@@ -37,25 +37,19 @@ public class SudokuSolver {
 	 */
 	public static int[][] solver(SudokuGame game) {
 		boolean go = true;
-		int count = 1;
-		System.out.println("Hello");
+		
 		while (go) {
-			System.out.println("Go number " + count);
-			go = updateState(game, getPossibleStates(game));
-			count++;
+			go = (updateState(game, getPossibleStates(game))|| OnlyOneOption(game, getPossibleStates(game)) );
 		}
-		System.out.println("Is it me you're looking for");
 		if (game.isComplete()) {
-			System.out.println("PLEASE");
 			if (game.isWin()) {
 				return game.getState();
 			} else {
-				System.out.println(
-						"The solver did not solve the game correctly. I apologize. There is debugging to be done");
+				System.out.println("The solver did not solve the game correctly. I apologize. There is debugging to be done");
 				return null;
 			}
 		}
-		System.out.println("nO WORK");
+		System.out.println("The solver cannot solve this game ");
 		return null;
 	}
 
@@ -72,13 +66,7 @@ public class SudokuSolver {
 		HashSet<Coordinate> trash = new HashSet<Coordinate>();
 		// basic checks
 		for (Coordinate c : possibilities.keySet()) {
-
-			System.out.println("(" + c.x + "," + c.y + "):");
-			System.out.println(possibilities.get(c));
-			System.out.println(game.getState()[c.y][c.x]);
-
 			if (possibilities.get(c).size() == 1) {
-				System.out.println("Its here");
 				updated = true;
 				game.editState(c.x, c.y, (int) possibilities.get(c).toArray()[0]);
 				trash.add(c);
@@ -128,9 +116,7 @@ public class SudokuSolver {
 		for (int i = 1; i < 10; i++) {
 			possibilities.add(i);
 		}
-		System.out.println(possibilities);
 		for (int i = 0; i < 9; i++) {
-			System.out.println(i);
 			// check row
 			if (possibilities.contains(state[pos.y][i])) {
 				possibilities.remove(state[pos.y][i]);
@@ -139,14 +125,12 @@ public class SudokuSolver {
 			if (possibilities.contains(state[i][pos.y])) {
 				possibilities.remove(state[i][pos.x]);
 			}
-			System.out.println(possibilities);
 		}
 		// check groups
 		for (int i = 0; i < 3; i++) {
 			for (int j = 0; j < 3; j++) {
 				if (possibilities.contains(state[groupY + j][groupX + i])) {
 					possibilities.remove(state[groupY + j][groupX + i]);
-					System.out.println(possibilities);
 				}
 
 			}
@@ -154,14 +138,12 @@ public class SudokuSolver {
 		return possibilities;
 	}
 	
-	private static void OnlyOneOption(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
-		OnlyOneOptionRow(game, possibilities);
-		OnlyOneOptionCol(game, possibilities);
-		OnlyOneOptionGroup(game, possibilities);
+	private static boolean OnlyOneOption(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+		return (OnlyOneOptionRow(game, possibilities) || OnlyOneOptionCol(game, possibilities) || OnlyOneOptionGroup(game, possibilities));
 	}
 	
 
-	private static void OnlyOneOptionGroup(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+	private static boolean OnlyOneOptionGroup(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
 		// if the possibility appears once in a group then that value is the possibility
 		int[][] state = game.getState();
 		HashMap<Coordinate, Integer> finalEdits = new HashMap<Coordinate, Integer>();
@@ -207,10 +189,11 @@ public class SudokuSolver {
 		for (Coordinate c : finalEdits.keySet()) {
 			game.editState(c.x, c.y, finalEdits.get(c));
 		}
+		return !finalEdits.isEmpty();
 
 	}
 
-	private static void OnlyOneOptionRow(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+	private static boolean OnlyOneOptionRow(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
 		int[][] state = game.getState();
 		HashMap<Coordinate, Integer> finalEdits = new HashMap<Coordinate, Integer>();
 		ArrayList<Coordinate> row = new ArrayList<Coordinate>();
@@ -250,9 +233,10 @@ public class SudokuSolver {
 		for (Coordinate c : finalEdits.keySet()) {
 			game.editState(c.x, c.y, finalEdits.get(c));
 		}
+		return !finalEdits.isEmpty();
 	}
 	
-	private static void OnlyOneOptionCol(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+	private static boolean OnlyOneOptionCol(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
 		int[][] state = game.getState();
 		HashMap<Coordinate, Integer> finalEdits = new HashMap<Coordinate, Integer>();
 		ArrayList<Coordinate> col = new ArrayList<Coordinate>();
@@ -292,6 +276,7 @@ public class SudokuSolver {
 		for (Coordinate c : finalEdits.keySet()) {
 			game.editState(c.x, c.y, finalEdits.get(c));
 		}
+		return !finalEdits.isEmpty();
 	}
 
 	public static class Coordinate {
