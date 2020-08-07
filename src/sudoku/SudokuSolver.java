@@ -280,12 +280,34 @@ public class SudokuSolver {
 	}
 	
 	//Maybe this should search and fix XY Splits 
-	private static boolean XYSplit(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities, ArrayList<Coordinate> set) {
-		// Collect Search locations: groups, columns, rows
-		
+	private static boolean XYSplit(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
 		// Instantiate found x-y split collection as a HashMap with the earliest coordinate first (see Coordinate inner class)
+		HashMap <Coordinate, Coordinate> foundSplits = new HashMap<Coordinate, Coordinate>();
+//		ArrayList<Coordinate> currentSeachSpace;
+//		// Collect Search locations: groups, columns, rows
+//		//just go in order 1-9 is rows 1-9/ 10-18 is columns 1-9/ 19-27 is groups 1-9
+//		for (int i = 1; i <= 27; i++) {
+////			Set the currentSearchspace
+//			if (i < 10) {
+//				// collect the rows
+//			} else if (i < 19) {
+//				// collect the columns
+//			} else {
+//				// collect the groups
+//			}
+//			
+//		}
+//		
+//		
+//		// Look for xy split from each location (helper method) detect XY Split returns the 2 coordinates(earliest first)
+//		
 		
-		// Look for xy split from each location (helper method) detect XY Split returns the 2 coordinates(earliest first)
+//		for each coordinate in the HashMap, can we look for an x-y split? n
+		
+//		instead of a HashMap of coordinates and their possibilities, can we do a 2d array of possibilities, 
+		
+//		A 2-D ARRAY OF HASHSETS!!!!!!! That way we save space and wont need the coordinate class, and each possibility 
+//		could be accessed randomly. 
 		
 		// For an xy split found 
 			// Remove x and y from other possibilities in current location
