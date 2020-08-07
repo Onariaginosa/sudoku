@@ -53,6 +53,13 @@ Solving Strategies:
 		number in a group and a row/column. Therefore, if a number, x is in group 1 in the middle
 		column, and group 4 in the  left column, then a 1 in group 7 can only appear in the right 
 		column. The same rule applies with rows.
+	6. Recursive Guessing:
+		If you have gone through the previous 5 and no solutions are present, then make a guess at
+		an open spot with the least amount of possibilities and pick a random one. Then proceed 
+		with the assumption that you have guessed correctly until provided with a contradiction. 
+		If contradicted remove that guess from the original solver and proceed with the state before
+		the guess. Because this will give you a definitive answer to any Sudoku puzzle this method 
+		is to be done only when there are no deducible choices to make. 
 		
 Implementation Checklist
 
@@ -61,13 +68,15 @@ Implementation Checklist
   _
  |C|  2. Instant Value Finder
   _
- |_|  3. Only 1 Option 
+ |C|  3. Only 1 Option 
   _
  |_|  4. The X-Y Split 
   _
  |_|  5. The Group Row/Column Assumption 
   _
  |_|  6. Number Solving
+  _
+ |_|  7. Recursive Guessing
 		
 		
 		

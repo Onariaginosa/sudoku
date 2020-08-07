@@ -278,8 +278,31 @@ public class SudokuSolver {
 		}
 		return !finalEdits.isEmpty();
 	}
+	
+	//Maybe this should search and fix XY Splits 
+	private static boolean XYSplit(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities, ArrayList<Coordinate> set) {
+		// Collect Search locations: groups, columns, rows
+		
+		// Instantiate found x-y split collection as a HashMap with the earliest coordinate first (see Coordinate inner class)
+		
+		// Look for xy split from each location (helper method) detect XY Split returns the 2 coordinates(earliest first)
+		
+		// For an xy split found 
+			// Remove x and y from other possibilities in current location
+			// Remove all other possibilities from the x-y split's 2 coordinates
+			// Add to a collection of found x-y splits so it is not repeated (earliest first)
+		// Search for other splits until all locations have been searched
+		// If the collection of found x-y splits is empty, then return false, otherwise return true. use a ternary operator for brevity
+		
+		
+		return false;
+	}
+	
 
-	public static class Coordinate {
+	private static class Coordinate {
+		
+		// x is the row
+		// y is the column
 		public int x;
 		public int y;
 
@@ -290,6 +313,20 @@ public class SudokuSolver {
 
 		private boolean isEqual(int X, int Y) {
 			return (this.x == X && this.y == Y) ? true : false;
+		}
+		//Earliest in this case is defined as smallest row, then smallest column.
+		//Returns earliest coordinate or null(if they are the same).
+		private static Coordinate earliestCoordinate( Coordinate one, Coordinate two) {
+			if (one.x < two.x) {
+				return one;
+			} else if (two.x < one.x) {
+				return two;
+			} else if (one.y < two.y) {
+				return one;
+			} else if (two.y < one.y) {
+				return two;
+			}
+			return null;
 		}
 	}
 
