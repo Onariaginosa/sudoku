@@ -25,6 +25,12 @@ public class SudokuSolver {
 //	private static final int[] VALIDNUMBERS = {1, 2, 3, 4, 5, 6, 7, 8, 9};
 	private static final int OPEN = 0;
 
+	
+
+	
+	
+	
+	
 	// Methods
 
 	/**
@@ -52,6 +58,38 @@ public class SudokuSolver {
 		System.out.println("The solver cannot solve this game ");
 		return null;
 	}
+	
+	
+	/**
+	 * Implementing a key system for the possibility map where the key is a number based on the coordinate groups.
+	 * If the coordinate is (3,4) where x = 3 and y = 4, then the resulting key is "34"
+	 * 
+	 * @param x			The x value of the coordinate to be located
+	 * @param y			The y value of the coordinate to be located
+	 * @return			The numerical key representing the coordinate to be located.
+	 */
+	private static int getKey(int x, int y) {
+		String X = Integer.toString(x);
+		String Y = Integer.toString(y);
+		String key = X+Y;
+		return Integer.parseInt(key);
+	}
+	
+	/**
+	 * Method to obtain the x coordinate from a given key integer.
+	 * @param key		The coordinate of the location in int form
+	 * @return			The x coordinate from the key
+	 */
+	private static int getX(int key) {
+//		use integer division to get the x value.
+		return key/10;
+	}
+	
+	private static int getY(int key) {
+//		use modulo to get the y value
+		return key%10;
+	}
+	
 
 	/**
 	 * Method that updates the state until all coordinate positions are either
@@ -84,15 +122,16 @@ public class SudokuSolver {
 	 * @param game The SudokuGame in which the possibilities must be generated
 	 * @return The possibility map of the given game's state.
 	 */
-	private static HashMap<Coordinate, HashSet<Integer>> getPossibleStates(SudokuGame game) {
+	
+	private static HashMap<Integer, HashSet<Integer>> getPossibleStates(SudokuGame game) {
 		int[][] state = game.getState();
-		HashMap<Coordinate, HashSet<Integer>> possibilityMap = new HashMap<Coordinate, HashSet<Integer>>();
-		Coordinate location;
+		HashMap<Integer, HashSet<Integer>> possibilityMap = new HashMap<Integer, HashSet<Integer>>();
+		Integer location;
 		HashSet<Integer> values;
 		for (int x = 0; x < 9; x++) {
 			for (int y = 0; y < 9; y++) {
 				if (state[y][x] == OPEN) {
-					location = new Coordinate(x, y);
+					location = getKey(x,y);
 					values = getPossibleValues(game, location);
 					possibilityMap.put(location, values);
 				}
@@ -108,22 +147,22 @@ public class SudokuSolver {
 	 * @param pos  The position in the SudokuGame state
 	 * @return A HashSet of the possible chosen positions
 	 */
-	private static HashSet<Integer> getPossibleValues(SudokuGame game, Coordinate pos) {
+	private static HashSet<Integer> getPossibleValues(SudokuGame game, int pos) {
 		int[][] state = game.getState();
-		int groupX = (pos.x / 3 == 0) ? 0 : (pos.x / 3 == 1) ? 3 : 6;
-		int groupY = (pos.y / 3 == 0) ? 0 : (pos.y / 3 == 1) ? 3 : 6;
+		int groupX = (getX(pos) / 3 == 0) ? 0 : (getX(pos)  / 3 == 1) ? 3 : 6;
+		int groupY = (getY(pos)  / 3 == 0) ? 0 : (getY(pos)  / 3 == 1) ? 3 : 6;
 		HashSet<Integer> possibilities = new HashSet<Integer>();
 		for (int i = 1; i < 10; i++) {
 			possibilities.add(i);
 		}
 		for (int i = 0; i < 9; i++) {
 			// check row
-			if (possibilities.contains(state[pos.y][i])) {
-				possibilities.remove(state[pos.y][i]);
+			if (possibilities.contains(state[getY(pos) ][i])) {
+				possibilities.remove(state[getY(pos) ][i]);
 			}
 			// check column
-			if (possibilities.contains(state[i][pos.y])) {
-				possibilities.remove(state[i][pos.x]);
+			if (possibilities.contains(state[i][getY(pos) ])) {
+				possibilities.remove(state[i][getX(pos) ]);
 			}
 		}
 		// check groups
@@ -309,6 +348,9 @@ public class SudokuSolver {
 //		A 2-D ARRAY OF HASHSETS!!!!!!! That way we save space and wont need the coordinate class, and each possibility 
 //		could be accessed randomly. 
 		
+//		After considering implementing a 2-D Array of HashSets, I am thinking of making a 2d array of keys and a possibilities hashMaps
+//		instead of using a coordinate class to have the random access memory and get rid of the individual object issue when accessing 
+//		the hashMap
 		// For an xy split found 
 			// Remove x and y from other possibilities in current location
 			// Remove all other possibilities from the x-y split's 2 coordinates
@@ -321,35 +363,38 @@ public class SudokuSolver {
 	}
 	
 
-	private static class Coordinate {
-		
-		// x is the row
-		// y is the column
-		public int x;
-		public int y;
-
-		Coordinate(int X, int Y) {
-			this.x = X;
-			this.y = Y;
-		}
-
-		private boolean isEqual(int X, int Y) {
-			return (this.x == X && this.y == Y) ? true : false;
-		}
-		//Earliest in this case is defined as smallest row, then smallest column.
-		//Returns earliest coordinate or null(if they are the same).
-		private static Coordinate earliestCoordinate( Coordinate one, Coordinate two) {
-			if (one.x < two.x) {
-				return one;
-			} else if (two.x < one.x) {
-				return two;
-			} else if (one.y < two.y) {
-				return one;
-			} else if (two.y < one.y) {
-				return two;
-			}
-			return null;
-		}
-	}
+//	This Class is redacted currently.
+	
+	
+//	private static class Coordinate {
+//		
+//		// x is the row
+//		// y is the column
+//		public int x;
+//		public int y;
+//
+//		Coordinate(int X, int Y) {
+//			this.x = X;
+//			this.y = Y;
+//		}
+//
+//		private boolean isEqual(int X, int Y) {
+//			return (this.x == X && this.y == Y) ? true : false;
+//		}
+//		//Earliest in this case is defined as smallest row, then smallest column.
+//		//Returns earliest coordinate or null(if they are the same).
+//		private static Coordinate earliestCoordinate( Coordinate one, Coordinate two) {
+//			if (one.x < two.x) {
+//				return one;
+//			} else if (two.x < one.x) {
+//				return two;
+//			} else if (one.y < two.y) {
+//				return one;
+//			} else if (two.y < one.y) {
+//				return two;
+//			}
+//			return null;
+//		}
+//	}
 
 }
