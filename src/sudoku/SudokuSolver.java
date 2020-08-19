@@ -99,18 +99,19 @@ public class SudokuSolver {
 	 * @param possibilities The possibility map for each position in the game.
 	 * @return returns true if the state was updated and false if not.
 	 */
-	private static boolean updateState(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+	private static boolean updateState(SudokuGame game, HashMap<Integer, HashSet<Integer>> possibilities) {
 		boolean updated = false;
-		HashSet<Coordinate> trash = new HashSet<Coordinate>();
+//		trash is to remove the keus
+		HashSet<Integer> trash = new HashSet<Integer>();
 		// basic checks
-		for (Coordinate c : possibilities.keySet()) {
-			if (possibilities.get(c).size() == 1) {
+		for (Integer key : possibilities.keySet()) {
+			if (possibilities.get(key).size() == 1) {
 				updated = true;
-				game.editState(c.x, c.y, (int) possibilities.get(c).toArray()[0]);
-				trash.add(c);
+				game.editState(getX(key), getY(key), (int) possibilities.get(key).toArray()[0]);
+				trash.add(key);
 			}
 		}
-		for (Coordinate c : trash) {
+		for (Integer c : trash) {
 			possibilities.remove(c);
 		}
 		return updated;
@@ -177,12 +178,12 @@ public class SudokuSolver {
 		return possibilities;
 	}
 	
-	private static boolean OnlyOneOption(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+	private static boolean OnlyOneOption(SudokuGame game, HashMap<Integer, HashSet<Integer>> possibilities) {
 		return (OnlyOneOptionRow(game, possibilities) || OnlyOneOptionCol(game, possibilities) || OnlyOneOptionGroup(game, possibilities));
 	}
 	
 
-	private static boolean OnlyOneOptionGroup(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+	private static boolean OnlyOneOptionGroup(SudokuGame game, HashMap<Integer, HashSet<Integer>> possibilities) {
 		// if the possibility appears once in a group then that value is the possibility
 		int[][] state = game.getState();
 		HashMap<Coordinate, Integer> finalEdits = new HashMap<Coordinate, Integer>();
@@ -226,13 +227,13 @@ public class SudokuSolver {
 		}
 		// edit all of the chosen locations in the game
 		for (Coordinate c : finalEdits.keySet()) {
-			game.editState(c.x, c.y, finalEdits.get(c));
+			game.editState(getX(key), getY(key), finalEdits.get(c));
 		}
 		return !finalEdits.isEmpty();
 
 	}
 
-	private static boolean OnlyOneOptionRow(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+	private static boolean OnlyOneOptionRow(SudokuGame game, HashMap<Integer, HashSet<Integer>> possibilities) {
 		int[][] state = game.getState();
 		HashMap<Coordinate, Integer> finalEdits = new HashMap<Coordinate, Integer>();
 		ArrayList<Coordinate> row = new ArrayList<Coordinate>();
@@ -270,12 +271,12 @@ public class SudokuSolver {
 		}
 		// edit all of the chosen locations in the game
 		for (Coordinate c : finalEdits.keySet()) {
-			game.editState(c.x, c.y, finalEdits.get(c));
+			game.editState(getX(key), getY(key), finalEdits.get(c));
 		}
 		return !finalEdits.isEmpty();
 	}
 	
-	private static boolean OnlyOneOptionCol(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+	private static boolean OnlyOneOptionCol(SudokuGame game, HashMap<Integer, HashSet<Integer>> possibilities) {
 		int[][] state = game.getState();
 		HashMap<Coordinate, Integer> finalEdits = new HashMap<Coordinate, Integer>();
 		ArrayList<Coordinate> col = new ArrayList<Coordinate>();
@@ -313,15 +314,15 @@ public class SudokuSolver {
 		}
 		// edit all of the chosen locations in the game
 		for (Coordinate c : finalEdits.keySet()) {
-			game.editState(c.x, c.y, finalEdits.get(c));
+			game.editState(getX(key), getY(key), finalEdits.get(c));
 		}
 		return !finalEdits.isEmpty();
 	}
 	
 	//Maybe this should search and fix XY Splits 
-	private static boolean XYSplit(SudokuGame game, HashMap<Coordinate, HashSet<Integer>> possibilities) {
+	private static boolean XYSplit(SudokuGame game, HashMap<Integer, HashSet<Integer>> possibilities) {
 		// Instantiate found x-y split collection as a HashMap with the earliest coordinate first (see Coordinate inner class)
-		HashMap <Coordinate, Coordinate> foundSplits = new HashMap<Coordinate, Coordinate>();
+		HashMap <Integer, Integer> foundSplits = new HashMap<Integer, Integer>();
 //		ArrayList<Coordinate> currentSeachSpace;
 //		// Collect Search locations: groups, columns, rows
 //		//just go in order 1-9 is rows 1-9/ 10-18 is columns 1-9/ 19-27 is groups 1-9
