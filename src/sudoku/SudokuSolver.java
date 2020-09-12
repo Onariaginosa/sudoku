@@ -322,81 +322,10 @@ public class SudokuSolver {
 	
 	//Maybe this should search and fix XY Splits 
 	private static boolean XYSplit(SudokuGame game, HashMap<Integer, HashSet<Integer>> possibilities) {
-		// Instantiate found x-y split collection as a HashMap with the earliest Integer first (see Integer inner class)
 		HashMap <Integer, Integer> foundSplits = new HashMap<Integer, Integer>();
-//		ArrayList<Integer> currentSeachSpace;
-//		// Collect Search locations: groups, columns, rows
-//		//just go in order 1-9 is rows 1-9/ 10-18 is columns 1-9/ 19-27 is groups 1-9
-//		for (int i = 1; i <= 27; i++) {
-////			Set the currentSearchspace
-//			if (i < 10) {
-//				// collect the rows
-//			} else if (i < 19) {
-//				// collect the columns
-//			} else {
-//				// collect the groups
-//			}
-//			
-//		}
-//		
-//		
-//		// Look for xy split from each location (helper method) detect XY Split returns the 2 Integers(earliest first)
-//		
-		
-//		for each Integer in the HashMap, can we look for an x-y split? n
-		
-//		instead of a HashMap of Integers and their possibilities, can we do a 2d array of possibilities, 
-		
-//		A 2-D ARRAY OF HASHSETS!!!!!!! That way we save space and wont need the Coordinate class, and each possibility 
-//		could be accessed randomly. 
-		
-//		After considering implementing a 2-D Array of HashSets, I am thinking of making a 2d array of keys and a possibilities hashMaps
-//		instead of using a Integer class to have the random access memory and get rid of the individual object issue when accessing 
-//		the hashMap
-		// For an xy split found 
-			// Remove x and y from other possibilities in current location
-			// Remove all other possibilities from the x-y split's 2 Integers
-			// Add to a collection of found x-y splits so it is not repeated (earliest first)
-		// Search for other splits until all locations have been searched
-		// If the collection of found x-y splits is empty, then return false, otherwise return true. use a ternary operator for brevity
-		
 		
 		return false;
 	}
-	
 
-//	This Class is redacted currently.
-	
-	
-//	private static class Coordinate {
-//		
-//		// x is the row
-//		// y is the column
-//		public int x;
-//		public int y;
-//
-//		Coordinate(int X, int Y) {
-//			this.x = X;
-//			this.y = Y;
-//		}
-//
-//		private boolean isEqual(int X, int Y) {
-//			return (this.x == X && this.y == Y) ? true : false;
-//		}
-//		//Earliest in this case is defined as smallest row, then smallest column.
-//		//Returns earliest Coordinate or null(if they are the same).
-//		private static Coordinate earliestCoordinate( Integer one, Integer two) {
-//			if (one.x < two.x) {
-//				return one;
-//			} else if (two.x < one.x) {
-//				return two;
-//			} else if (one.y < two.y) {
-//				return one;
-//			} else if (two.y < one.y) {
-//				return two;
-//			}
-//			return null;
-//		}
-//	}
 
 }
